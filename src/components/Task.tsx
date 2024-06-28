@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -7,7 +6,7 @@ import TaskModel from '../models/Task.ts';
 
 interface Props {
   onLongPress: () => void;
-  checked: (task : TaskModel) => void;
+  checked: (task: TaskModel) => void;
   task: TaskModel;
 }
 
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 5
+    marginBottom: 5,
   },
   description: {
     fontSize: 14,

@@ -9,14 +9,14 @@ import {
 } from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import BackButtonIcon from '../../icons/BackButtonIcon.tsx';
 // @ts-ignore
 import Plus from '../../resource/plus.svg';
 import {Database} from '../../database/Database.ts';
 import TaskModel from '../../models/Task.ts';
 import Dropdown from '../../components/Dropdown.tsx';
-import Label from '../../components/Lable.tsx';
+import Label from '../../components/Label.tsx';
 import {DropdownItem} from '../../types/DropdownItem.ts';
 
 interface Props {}
@@ -31,7 +31,7 @@ const AddTask: React.FC = () => {
   const database = new Database();
 
   useEffect(() => {
-    setCategories(database.getCategoryForPicker(true))
+    setCategories(database.getCategoryForPicker(true));
   }, []);
 
   const validateTaskCreate = () => {
@@ -59,7 +59,7 @@ const AddTask: React.FC = () => {
   };
 
   const handleSelectCategory = (item: DropdownItem | number | null) => {
-    if (typeof item == 'number') {
+    if (typeof item === 'number') {
       setCategory(item);
       return;
     }
@@ -71,7 +71,10 @@ const AddTask: React.FC = () => {
     setCategory(item.id);
   };
 
-  const handleCreateCategory = (name: string, selected: (selected: boolean) => void) => {
+  const handleCreateCategory = (
+    name: string,
+    selected: (selected: boolean) => void,
+  ) => {
     if (name.trim() === '') {
       Alert.alert('Hint', "To add a category write it's name to search bar");
       return;
@@ -85,11 +88,11 @@ const AddTask: React.FC = () => {
           text: 'Yes',
           onPress: () => {
             database.addCategory(name);
-            setCategories(database.getCategoryForPicker(true))
+            setCategories(database.getCategoryForPicker(true));
 
             let category = database.getCategory(name);
-            if (category){
-              handleSelectCategory(category.id)
+            if (category) {
+              handleSelectCategory(category.id);
             }
             selected(true);
           },
@@ -102,13 +105,22 @@ const AddTask: React.FC = () => {
   };
 
   const handleOnLongPress = (item: DropdownItem) => {
-    Alert.alert('Delete', 'Are you sure you want to delete this category?', [
-      { text: 'Yes', onPress: () => {
-          database.removeCategory(item.id);
-          setCategories(database.getCategoryForPicker(true))
-        }, style: 'destructive' },
-      { text: 'No', style: 'cancel' },
-    ],{cancelable: true})
+    Alert.alert(
+      'Delete',
+      'Are you sure you want to delete this category?',
+      [
+        {
+          text: 'Yes',
+          onPress: () => {
+            database.removeCategory(item.id);
+            setCategories(database.getCategoryForPicker(true));
+          },
+          style: 'destructive',
+        },
+        {text: 'No', style: 'cancel'},
+      ],
+      {cancelable: true},
+    );
   };
 
   return (

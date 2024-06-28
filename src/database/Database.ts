@@ -12,7 +12,7 @@ export class Database {
 
   getTasks(): TaskModel[] {
     const jsonTasks = this.storage.getString('Tasks');
-    return jsonTasks ? JSON.parse(jsonTasks) : [];
+    return JSON.parse(<string>jsonTasks);
   }
 
   updateTask(task: TaskModel): void {
@@ -57,8 +57,8 @@ export class Database {
   }
 
   getCategories(): Category[] {
-    const jsonTasks = this.storage.getString('Category');
-    return jsonTasks ? JSON.parse(jsonTasks) : [];
+    const jsonCategories = this.storage.getString('Category');
+    return JSON.parse(<string>jsonCategories);
   }
 
   addCategory(title: string): void {
@@ -66,20 +66,6 @@ export class Database {
     const id = categories.length + 1;
 
     categories.push(new Category({title: title, id: id}));
-    this.storeCategories(this.sortCategory(categories));
-  }
-
-  updateCategory(category: Category): void {
-    let categories: Category[] = this.getCategories();
-
-    for (let i = 0; i < categories.length; i++) {
-      let oldCategory: Category = categories[i];
-      if (oldCategory.id === category.id) {
-        categories[i] = category;
-        break;
-      }
-    }
-
     this.storeCategories(this.sortCategory(categories));
   }
 
